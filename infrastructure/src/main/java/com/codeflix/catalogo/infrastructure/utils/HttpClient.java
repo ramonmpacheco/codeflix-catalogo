@@ -1,6 +1,19 @@
 package com.codeflix.catalogo.infrastructure.utils;
 
+import com.codeflix.catalogo.domain.exceptions.InternalErrorException;
+import com.codeflix.catalogo.infrastructure.exceptions.NotFoundException;
+import org.apache.commons.lang3.exception.ExceptionUtils;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
+import org.springframework.web.client.ResourceAccessException;
+import org.springframework.web.client.RestClient.ResponseSpec.ErrorHandler;
+
+import java.net.http.HttpConnectTimeoutException;
+import java.net.http.HttpTimeoutException;
+import java.util.Optional;
+import java.util.concurrent.TimeoutException;
+import java.util.function.Predicate;
+import java.util.function.Supplier;
 
 public interface HttpClient {
 

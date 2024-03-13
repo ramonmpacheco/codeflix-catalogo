@@ -1,7 +1,25 @@
 package com.codeflix.catalogo.infrastructure.kafka;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.codeflix.catalogo.application.genre.delete.DeleteGenreUseCase;
+import com.codeflix.catalogo.application.genre.save.SaveGenreUseCase;
+import com.codeflix.catalogo.infrastructure.configuration.json.Json;
 import com.codeflix.catalogo.infrastructure.genre.GenreGateway;
+import com.codeflix.catalogo.infrastructure.genre.models.GenreEvent;
+import com.codeflix.catalogo.infrastructure.kafka.models.connect.MessageValue;
+import com.codeflix.catalogo.infrastructure.kafka.models.connect.Operation;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.kafka.annotation.DltHandler;
+import org.springframework.kafka.annotation.KafkaListener;
+import org.springframework.kafka.annotation.RetryableTopic;
+import org.springframework.kafka.listener.adapter.ConsumerRecordMetadata;
+import org.springframework.kafka.retrytopic.TopicSuffixingStrategy;
+import org.springframework.messaging.handler.annotation.Payload;
+import org.springframework.retry.annotation.Backoff;
 import org.springframework.stereotype.Component;
+
+import java.util.Objects;
 
 @Component
 public class GenreListener {
